@@ -26,6 +26,30 @@ def speak(text,len="en"):
         engine.say(text)
         engine.runAndWait()
         engine.setProperty('voice', voices[0].id)
+    if len=="fr":
+        """Speaks the text"""
+        engine.setProperty('voice', voices[5].id)
+        engine.say(text)
+        engine.runAndWait()
+        engine.setProperty('voice', voices[0].id)
+    if len=="es":
+        """Speaks the text"""
+        engine.setProperty('voice', voices[3].id)
+        engine.say(text)
+        engine.runAndWait()
+        engine.setProperty('voice', voices[0].id)
+    if len=="it":
+        """Speaks the text"""
+        engine.setProperty('voice', voices[6].id)
+        engine.say(text)
+        engine.runAndWait()
+        engine.setProperty('voice', voices[0].id)
+    if len=="de":
+        """Speaks the text"""
+        engine.setProperty('voice', voices[1].id)
+        engine.say(text)
+        engine.runAndWait()
+        engine.setProperty('voice', voices[0].id)
     else:
         """Speaks the text"""
         engine.say(text)
@@ -52,7 +76,7 @@ def take_user_input():
     """Takes input from user"""
     
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone(device_index=2) as source:
         print('Listening....')
         r.pause_threshold = 1
         audio = r.listen(source)
@@ -100,6 +124,7 @@ if __name__ == '__main__':
                 len = take_user_input().lower()
                 if len in LANGUAGES:
                     speak("Preparing to translate")
-                    speak("{query} in {len} is {result}".format(query=query, len=len, result=translate(query, LANGUAGES.get(len))),LANGUAGES.get(len))
+                    speak("{query} in {len} is".format(query=query, len=len, result=translate(query, LANGUAGES.get(len))))
+                    speak("{result}".format(query=query, len=len, result=translate(query, LANGUAGES.get(len))),LANGUAGES.get(len))
                 else:
                     speak("Sorry, I do not know that language")
