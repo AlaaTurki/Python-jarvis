@@ -11,7 +11,7 @@ def translate(query,len):
     from googletrans import Translator
     translator = Translator()
 
-    if len == "spanish":
-        result = translator.translate(text=str(query),dest="su").text
-        return(result)
+    result = translator.translate(text=str(query),dest=len)
+    return(result.text)
+
 

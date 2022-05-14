@@ -19,10 +19,18 @@ engine.setProperty('voice', voices[0].id)
 
 
 # The main TOS function
-def speak(text):
-    """Speaks the text"""
-    engine.say(text)
-    engine.runAndWait()
+def speak(text,len="en"):
+    if len=="ar":
+        """Speaks the text"""
+        engine.setProperty('voice', voices[1].id)
+        engine.say(text)
+        engine.runAndWait()
+        engine.setProperty('voice', voices[0].id)
+    else:
+        """Speaks the text"""
+        engine.say(text)
+        engine.runAndWait()
+
 
 
 # Greet the user
@@ -80,11 +88,18 @@ if __name__ == '__main__':
             search(query)
 
         if 'translate' in query:
-            query = query.replace('translate', '')
+
+            LANGUAGES = {'afrikaans': 'af', 'albanian': 'sq', 'amharic': 'am', 'arabic': 'ar', 'armenian': 'hy', 'azerbaijani': 'az', 'basque': 'eu', 'belarusian': 'be', 'bengali': 'bn', 'bosnian': 'bs', 'bulgarian': 'bg', 'catalan': 'ca', 'cebuano': 'ceb', 'chichewa': 'ny', 'chinese (simplified)': 'zh-cn', 'chinese (traditional)': 'zh-tw', 'corsican': 'co', 'croatian': 'hr', 'czech': 'cs', 'danish': 'da', 'dutch': 'nl', 'english': 'en', 'esperanto': 'eo', 'estonian': 'et', 'filipino': 'tl', 'finnish': 'fi', 'french': 'fr', 'frisian': 'fy', 'galician': 'gl', 'georgian': 'ka', 'german': 'de', 'greek': 'el', 'gujarati': 'gu', 'haitian creole': 'ht', 'hausa': 'ha', 'hawaiian': 'haw', 'hebrew': 'he', 'hindi': 'hi', 'hmong': 'hmn', 'hungarian': 'hu', 'icelandic': 'is', 'igbo': 'ig', 'indonesian': 'id', 'irish': 'ga', 'italian': 'it', 'japanese': 'ja', 'javanese': 'jw', 'kannada': 'kn', 'kazakh': 'kk', 'khmer': 'km', 'korean': 'ko', 'kurdish (kurmanji)': 'ku',
+            'kyrgyz': 'ky', 'lao': 'lo', 'latin': 'la', 'latvian': 'lv', 'lithuanian': 'lt', 'luxembourgish': 'lb', 'macedonian': 'mk', 'malagasy': 'mg', 'malay': 'ms', 'malayalam': 'ml', 'maltese': 'mt', 'maori': 'mi', 'marathi': 'mr', 'mongolian': 'mn', 'myanmar (burmese)': 'my', 'nepali': 'ne', 'norwegian': 'no', 'odia': 'or', 'pashto': 'ps', 'persian': 'fa', 'polish': 'pl', 'portuguese': 'pt', 'punjabi': 'pa', 'romanian': 'ro', 'russian': 'ru', 'samoan': 'sm', 'scots gaelic': 'gd', 'serbian': 'sr', 'sesotho': 'st', 'shona': 'sn', 'sindhi': 'sd', 'sinhala': 'si', 'slovak': 'sk', 'slovenian': 'sl', 'somali': 'so', 'spanish': 'es', 'sundanese': 'su', 'swahili': 'sw', 'swedish': 'sv', 'tajik': 'tg', 'tamil': 'ta', 'telugu': 'te', 'thai': 'th', 'turkish': 'tr', 'ukrainian': 'uk', 'urdu': 'ur', 'uyghur': 'ug', 'uzbek': 'uz', 'vietnamese': 'vi', 'welsh': 'cy', 'xhosa': 'xh', 'yiddish': 'yi', 'yoruba': 'yo', 'zulu': 'zu'}
+
+            query = query.replace('translate', '').strip()
             if query == "":
                 speak('Please specify the text to be translated')
             else:
                 speak("What language would you like to translate to?")
                 len = take_user_input().lower()
-                speak("Preparing to translate")
-                speak(query + " in spanish is " + translate(query,len))
+                if len in LANGUAGES:
+                    speak("Preparing to translate")
+                    speak("{query} in {len} is {result}".format(query=query, len=len, result=translate(query, LANGUAGES.get(len))),LANGUAGES.get(len))
+                else:
+                    speak("Sorry, I do not know that language")
