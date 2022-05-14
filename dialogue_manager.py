@@ -20,7 +20,7 @@ class DialogueManager(object):
             trainer='chatterbot.trainers.ChatterBotCorpusTrainer'
         )
         self.chatbot.train("chatterbot.corpus.english")
-        self.chatbot.train("chatterbot.corpus.convo-bbc.The Flatmates - Episode 1")
+        #self.chatbot.train("chatterbot.corpus.custom.Airport")
        
     def generate_answer(self, question):      
 
