@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 workspace.code-workspace
 .gitignore
+test2.py
