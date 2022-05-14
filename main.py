@@ -29,7 +29,7 @@ engine.setProperty('rate', 190)
 engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
-dialogue_manager = DialogueManager(RESOURCE_PATH)
+dialogue_manager = DialogueManager()
 bot = Bot(dialogue_manager)
 
 # The main TOS function
@@ -90,7 +90,7 @@ def take_user_input():
     """Takes input from user"""
     
     r = sr.Recognizer()
-    with sr.Microphone(device_index=2) as source:
+    with sr.Microphone(device_index=0) as source:
         print('Listening....')
         r.pause_threshold = 1
         audio = r.listen(source)
