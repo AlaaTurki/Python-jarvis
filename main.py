@@ -5,6 +5,7 @@ from datetime               import datetime
 from random                 import choice
 from pprint                 import pprint
 from tools                  import *
+from dialogue_manager       import DialogueManager
 
 class Bot(object):
     def __init__(self, dialogue_manager):
@@ -28,7 +29,7 @@ engine.setProperty('rate', 190)
 engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
-dialogue_manager = SimpleDialogueManager()
+dialogue_manager = DialogueManager(RESOURCE_PATH)
 bot = Bot(dialogue_manager)
 
 # The main TOS function

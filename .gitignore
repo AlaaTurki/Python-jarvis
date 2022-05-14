@@ -13,6 +13,11 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+dataset/thread_embeddings_by_tags
+dataset/intent_recognizer.pkl
+dataset/starspace_embedding.tsv
+dataset/tag_classifier.pkl
+dataset/tfidf_vectorizer.pkl
 .eggs/
 lib/
 lib64/
