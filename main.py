@@ -6,6 +6,18 @@ from random                 import choice
 from pprint                 import pprint
 from tools                  import *
 
+class Bot(object):
+    def __init__(self, dialogue_manager):
+        self.dialogue_manager = dialogue_manager
+
+    def get_answer(self, question):
+        return self.dialogue_manager.generate_answer(question)
+
+class SimpleDialogueManager(object):
+    @staticmethod
+    def generate_answer(question):
+        return "Hello, world!"
+
 
 username = config('username')
 jarvis = config('botname')
@@ -16,7 +28,8 @@ engine.setProperty('rate', 190)
 engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
-
+dialogue_manager = SimpleDialogueManager()
+bot = Bot(dialogue_manager)
 
 # The main TOS function
 def speak(text,len="en"):
@@ -128,3 +141,14 @@ if __name__ == '__main__':
                     speak("{result}".format(query=query, len=len, result=translate(query, LANGUAGES.get(len))),LANGUAGES.get(len))
                 else:
                     speak("Sorry, I do not know that language")
+
+
+        if 'let\'s chat' in query:
+            speak('I\'m happy to chat')
+            while True:
+                query = take_user_input().lower()
+                if 'pause chat' in query:
+                    speak('I\'m glad we got to chat! Bye')
+                    break
+                else:
+                    speak(bot.get_answer(query))
